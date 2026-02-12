@@ -1,0 +1,13 @@
+/home/runner/work/HDDRecovery/HDDRecovery/HDDRecovery/bin/Debug/net8.0/HDDRecovery.deps.json
+/home/runner/work/HDDRecovery/HDDRecovery/HDDRecovery/bin/Debug/net8.0/HDDRecovery.dll
+/home/runner/work/HDDRecovery/HDDRecovery/HDDRecovery/bin/Debug/net8.0/HDDRecovery.pdb
+/home/runner/work/HDDRecovery/HDDRecovery/HDDRecovery/obj/Debug/net8.0/HDDRecovery.csproj.AssemblyReference.cache
+/home/runner/work/HDDRecovery/HDDRecovery/HDDRecovery/obj/Debug/net8.0/HDDRecovery.GeneratedMSBuildEditorConfig.editorconfig
+/home/runner/work/HDDRecovery/HDDRecovery/HDDRecovery/obj/Debug/net8.0/HDDRecovery.AssemblyInfoInputs.cache
+/home/runner/work/HDDRecovery/HDDRecovery/HDDRecovery/obj/Debug/net8.0/HDDRecovery.AssemblyInfo.cs
+/home/runner/work/HDDRecovery/HDDRecovery/HDDRecovery/obj/Debug/net8.0/HDDRecovery.csproj.CoreCompileInputs.cache
+/home/runner/work/HDDRecovery/HDDRecovery/HDDRecovery/obj/Debug/net8.0/HDDRecovery.sourcelink.json
+/home/runner/work/HDDRecovery/HDDRecovery/HDDRecovery/obj/Debug/net8.0/HDDRecovery.dll
+/home/runner/work/HDDRecovery/HDDRecovery/HDDRecovery/obj/Debug/net8.0/refint/HDDRecovery.dll
+/home/runner/work/HDDRecovery/HDDRecovery/HDDRecovery/obj/Debug/net8.0/HDDRecovery.pdb
+/home/runner/work/HDDRecovery/HDDRecovery/HDDRecovery/obj/Debug/net8.0/ref/HDDRecovery.dll
