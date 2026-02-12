@@ -27,6 +27,7 @@ namespace HDDRecovery.Forms
         private Point _lastMousePos;
         private bool _isPanning;
         private readonly Dictionary<string, Bitmap> _imageCache;
+        private readonly LinkedList<string> _cacheAccessOrder;
         private const int MaxCacheSize = 50;
 
         public FilePreviewForm(string destinationPath)
@@ -37,6 +38,7 @@ namespace HDDRecovery.Forms
             _allFiles = new List<RecoveredFileInfo>();
             _filteredFiles = new List<RecoveredFileInfo>();
             _imageCache = new Dictionary<string, Bitmap>();
+            _cacheAccessOrder = new LinkedList<string>();
             
             InitializeControls();
             LoadFilesAsync();
@@ -105,6 +107,18 @@ namespace HDDRecovery.Forms
             var folders = _previewService.GetUniqueFolders(_allFiles);
             var folderNodes = new Dictionary<string, TreeNode>();
             folderNodes[_destinationPath] = rootNode;
+            
+            // Pre-compute file counts for all directories
+            var fileCounts = new Dictionary<string, int>();
+            foreach (var file in _allFiles)
+            {
+                var directory = Path.GetDirectoryName(file.FullPath) ?? string.Empty;
+                if (!fileCounts.ContainsKey(directory))
+                {
+                    fileCounts[directory] = 0;
+                }
+                fileCounts[directory]++;
+            }
 
             foreach (var folder in folders)
             {
@@ -121,7 +135,7 @@ namespace HDDRecovery.Forms
                     
                     if (!folderNodes.ContainsKey(currentPath))
                     {
-                        var fileCount = _allFiles.Count(f => Path.GetDirectoryName(f.FullPath) == currentPath);
+                        var fileCount = fileCounts.ContainsKey(currentPath) ? fileCounts[currentPath] : 0;
                         var newNode = new TreeNode($"{part} ({fileCount})")
                         {
                             Tag = currentPath,
@@ -225,6 +239,10 @@ namespace HDDRecovery.Forms
                     _currentImage = cachedImage;
                     picPreview.Image = _currentImage;
                     UpdateImageInfo(file);
+                    
+                    // Update LRU order
+                    _cacheAccessOrder.Remove(file.FullPath);
+                    _cacheAccessOrder.AddLast(file.FullPath);
                     return;
                 }
 
@@ -236,14 +254,20 @@ namespace HDDRecovery.Forms
                     _currentImage = image;
                     picPreview.Image = _currentImage;
                     
-                    // Add to cache
+                    // Add to cache with LRU eviction
                     if (_imageCache.Count >= MaxCacheSize)
                     {
-                        var firstKey = _imageCache.Keys.First();
-                        _imageCache[firstKey].Dispose();
-                        _imageCache.Remove(firstKey);
+                        // Remove least recently used
+                        var lruKey = _cacheAccessOrder.First?.Value;
+                        if (lruKey != null)
+                        {
+                            _imageCache[lruKey].Dispose();
+                            _imageCache.Remove(lruKey);
+                            _cacheAccessOrder.RemoveFirst();
+                        }
                     }
                     _imageCache[file.FullPath] = image;
+                    _cacheAccessOrder.AddLast(file.FullPath);
                     
                     UpdateImageInfo(file);
                 }
@@ -370,7 +394,14 @@ namespace HDDRecovery.Forms
                 g.DrawImage(_currentImage, 0, 0, newWidth, newHeight);
             }
             
+            // Dispose previous zoomed image if it's not the original cached image
+            var previousImage = picPreview.Image;
             picPreview.Image = resized;
+            
+            if (previousImage != null && previousImage != _currentImage && !_imageCache.ContainsValue((Bitmap)previousImage))
+            {
+                previousImage.Dispose();
+            }
         }
 
         private void PicPreview_MouseDown(object? sender, MouseEventArgs e)

@@ -87,9 +87,10 @@ namespace HDDRecovery.Helpers
 
                 if (hIcon != IntPtr.Zero && shinfo.hIcon != IntPtr.Zero)
                 {
-                    Icon icon = (Icon)Icon.FromHandle(shinfo.hIcon).Clone();
+                    Icon icon = Icon.FromHandle(shinfo.hIcon);
+                    Icon clonedIcon = (Icon)icon.Clone();
                     DestroyIcon(shinfo.hIcon);
-                    return icon;
+                    return clonedIcon;
                 }
             }
             catch
