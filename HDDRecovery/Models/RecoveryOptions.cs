@@ -31,10 +31,5 @@ namespace HDDRecovery.Models
         /// Gets or sets the file filter pattern (e.g., "*.*" for all files, "*.jpg;*.png" for specific types).
         /// </summary>
         public string FileFilter { get; set; } = "*.*";
-
-        /// <summary>
-        /// Gets or sets a value indicating whether the operation has been cancelled.
-        /// </summary>
-        public bool IsCancelled { get; set; } = false;
     }
 }

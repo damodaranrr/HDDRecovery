@@ -367,7 +367,7 @@ HDDRecovery/
 
 #### Issue: Application won't start
 **Solution:**
-- Ensure .NET 6.0 Runtime is installed
+- Ensure .NET 8.0 Runtime is installed
 - Check Windows Event Viewer for error details
 - Run as Administrator if accessing system drives
 
