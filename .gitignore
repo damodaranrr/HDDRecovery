@@ -30,6 +30,29 @@ bld/
 # Rider
 .idea/
 
+# Test Results
+[Tt]est[Rr]esult*/
+[Bb]uild[Ll]og.*
+
+# .NET Core
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# NuGet Packages
+*.nupkg
+*.snupkg
+**/packages/*
+!**/packages/build/
+
+# Code Coverage
+coverage/
+*.coverage
+*.coveragexml
+
+# Logs
+*.log
+
 # Files built by Visual Studio
 *_i.c
 *_p.c
@@ -51,7 +74,6 @@ bld/
 *.tmp
 *.tmp_proj
 *_wpftmp.csproj
-*.log
 *.tlog
 *.vspscc
 *.vssscc
@@ -59,17 +81,6 @@ bld/
 *.pidb
 *.svclog
 *.scc
-
-# NuGet Packages
-*.nupkg
-*.snupkg
-**/packages/*
-!**/packages/build/
-
-# .NET Core
-project.lock.json
-project.fragment.lock.json
-artifacts/
 
 # ASP.NET Scaffolding
 ScaffoldingReadMe.txt
