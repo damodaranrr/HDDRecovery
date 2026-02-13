@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="HDDRecovery.Tests/HDDRecovery.Tests.csproj" />
+  <Project Path="HDDRecovery/HDDRecovery.csproj" />
+</Solution>
